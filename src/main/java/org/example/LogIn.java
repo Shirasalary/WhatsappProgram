@@ -2,6 +2,7 @@ package org.example;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
 import javax.swing.*;
@@ -46,20 +47,21 @@ public class LogIn extends JPanel {
         this.logInButton.addActionListener((e) ->{
             this.logInButton.setVisible(false);
             this.statusLabel.setVisible(true);
-            driver = new EdgeDriver();
-            driver.get(Constants.WHATSAPP_PATH);
-            driver.manage().window().maximize();
-            Utils.sleep(Constants.TIME_FOR_LOADING);
-            this.scanTread.start();
-            while (!this.isScan)
-            {
-               repaint();
-            }
-            this.statusLabel.setText("Successfully logged in");
-            driver.manage().window().minimize();
-            Utils.sleep(Constants.TIME_FOR_LOADING);
-            this.statusLabel.setVisible(false);
-            this.add(new SendMessage(this.getX(),this.getY(),this.getWidth(),this.getHeight(),driver));
+            new Thread(() ->{
+                driver = new EdgeDriver();
+                driver.get(Constants.WHATSAPP_PATH);
+                driver.manage().window().maximize();
+                Utils.sleep(Constants.TIME_FOR_LOADING);
+                this.scanTread.start();
+                while (!this.isScan)
+                {
+                    repaint();
+                }
+                this.statusLabel.setText("Successfully logged in");
+                driver.manage().window().minimize();
+                this.statusLabel.setVisible(false);
+                this.add(new SendMessage(this.getX(),this.getY(),this.getWidth(),this.getHeight(),driver));
+            }).start();
 
         });
 

@@ -38,4 +38,13 @@ public class Utils {
         return textFiled;
     }
 
+    public static JTextArea newTextArea (String text, int x, int y){
+
+        JTextArea textArea = new JTextArea(text);
+        textArea.setBounds(x, y,Constants.TEXT_AREA_WIDTH,Constants.TEXT_AREA_HEIGHT);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        return textArea;
+    }
+
 }
