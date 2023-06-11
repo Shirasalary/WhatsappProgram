@@ -5,7 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public class LogIn extends JPanel {
 
@@ -17,11 +21,13 @@ public class LogIn extends JPanel {
 
     private boolean isScan;
 
+    private ImageIcon background;
+
     public LogIn(int x, int y, int width, int height){
 
         this.setBounds(x,y,width,height);
         this.setLayout(null);
-
+        this.background = new ImageIcon("src/main/java/org/example/whatsapp.jpg");
         System.setProperty("webdriver.openqa.driver","C:\\Users\\shira\\Downloads\\msedgedriver.exe");
 
         this.logInButton = Utils.newButton("Log In",
@@ -32,6 +38,8 @@ public class LogIn extends JPanel {
                 (this.getHeight()/4)*3);
         this.statusLabel.setVisible(false);
         this.isScan = false;
+
+
         this.scanTread = new Thread(()->{
             while (true)
             {
@@ -70,8 +78,14 @@ public class LogIn extends JPanel {
     }
 
 
-    private void addObjects(){
+    public void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+        graphics.drawImage(this.background.getImage(),this.getX(),this.getY(),this.getWidth(), this.getHeight(),null );
+        graphics.drawImage(this.background.getImage(),this.getX(),this.getY(),this.getWidth(), this.getHeight(),null );
 
+    }
+
+    private void addObjects(){
 
         this.add(this.logInButton);
         this.add(this.statusLabel);

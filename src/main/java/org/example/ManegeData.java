@@ -28,6 +28,7 @@ public class ManegeData {
     private JLabel responseTitle;
     private JTextArea responseText;
 
+
 //לעשות תכונה שהיא תספור את כמות השליחות ואז ככה נוכל לעשות תנאי שאם שולחים הודעה באמצע אז התהליכונים מפסיקים
     //לשנות לכל 10 שניות את בדיקת שליחת תגובה
 
@@ -46,8 +47,10 @@ public class ManegeData {
         this.responseTitle =responseTitle;
         this.responseText = responseText;
 
+
         this.sendButton.addActionListener((e) ->{
              if (isAllDetailsValid()){
+
                  sendMessage();
              }
 
@@ -67,16 +70,18 @@ public class ManegeData {
     private void checkStatusV(){
         new Thread(() -> {
             while (true){
-
                 try {
-                    WebElement vElement = driver.findElement(By.xpath(Constants.V_ELEMENT_PATH));
-                    String statusV = vElement.getAttribute(Constants.PARAMETER_NAME_STATUS_V);
-                    if (statusV.equals(Constants.SEND_NOT_SEE_PARAMETER) &&
+                    WebElement saveAllMessages = driver.findElement(By.xpath("//*[@id=\"main\"]/div[2]/div/div[2]/div[3]"));
+                    List<WebElement> rows= saveAllMessages.findElements(By.xpath("./*"));//child
+                    List<WebElement> afterTag = rows.get(rows.size() - 1).findElements(By.tagName("span"));
+                    String statusV = afterTag.get(afterTag.size()-2).getAttribute("aria-label");
+                   // String statusV = vElement.getAttribute(Constants.PARAMETER_NAME_STATUS_V);
+                    if (statusV.contains(Constants.SEND_NOT_SEE_PARAMETER) &&
                     this.statusSend == Constants.NOT_SEND ) {
                         System.out.println("Worked 1");
                         this.messageForUserLabel.setText("Message Sent");
                         changeStatusV();
-                    } else if (statusV.equals(Constants.SEND_AND_SEE_PARAMETER) &&
+                    } else if (statusV.contains(Constants.SEND_AND_SEE_PARAMETER) &&
                             this.statusSend == Constants.SEND_NOT_SEE) {
                         System.out.println("Worked 2");
                         this.messageForUserLabel.setText("Message was read");
@@ -114,11 +119,12 @@ public class ManegeData {
                             this.messageForUserLabel.setText("get Message");
                             break;
                         }
+
                     }
 
                 }catch (Exception e)
                 {
-                    System.out.println("no found");
+                    System.out.print("");
                 }
             }
         }).start();
@@ -147,8 +153,14 @@ public class ManegeData {
         }
         this.textBoxElement.sendKeys(this.messageText.getText());
         this.textBoxElement.sendKeys(Keys.ENTER);
+        this.isEnterWeb = false;
         checkResponse(Constants.COUNT_MESSAGES);
+        while (this.countMessagesInChat == 0)
+        {
+            System.out.print("");
+        }
         checkStatusV();
+
     }
 
 

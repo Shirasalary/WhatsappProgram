@@ -4,6 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SendMessage extends JPanel{
 
@@ -18,13 +19,13 @@ public class SendMessage extends JPanel{
     private JLabel responseTitle;
     private JTextArea responseText;
 
-
+    private ImageIcon image;
 
     public SendMessage(int x, int y, int width, int height, EdgeDriver driver)
     {
         this.setBounds(x,y,width,height);
         this.setLayout(null);
-
+        this.image = new ImageIcon("src/main/java/org/example/background.jpg");
         this.messageTextTitle = Utils.newLabel("Message Text",
                 this.getX()  + Constants.MARGIN_FROM_LEFT,
                 (this.getHeight()/5));
@@ -61,6 +62,12 @@ public class SendMessage extends JPanel{
         this.setVisible(true);
     }
 
+    public void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+        graphics.drawImage(this.image.getImage(),this.getX(),this.getY(),this.getWidth(), this.getHeight(),null );
+        graphics.drawImage(this.image.getImage(),this.getX(),this.getY(),this.getWidth(), this.getHeight(),null );
+
+    }
 
     private void addObjects()
     {

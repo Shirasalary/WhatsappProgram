@@ -21,13 +21,14 @@ public class Constants {
     public static final String QR_CODE_CLASS = "_19vUU" , WHATSAPP_PATH = "https://web.whatsapp.com/",
             RECIPIENT_START_PATH = "https://web.whatsapp.com/send?phone=",
     TEXT_BOX_PATH = "//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p",
-    V_ELEMENT_PATH ="//*[@id=\"main\"]/div[2]/div/div[2]/div[3]/div[17]/div/div/div/div[1]/div[1]/div[2]/div/div/span",
+    V_ELEMENT_PATH ="*[@id=\"main\"]/div[2]/div/div[2]/div[3]/div[17]/div/div/div/div[1]/div[1]/div[2]/div/div/span",
     TEXT_PATH = "/div/div/div/div[1]/div[1]/div[1]/div/span[1]/span";
 
+    //*[@id="main"]/div[2]/div/div[2]/div[3]/div[17]/div/div/div/div[1]/div[1]/div[2]/div/div/span
     public static final int NOT_SEND = 1, SEND_NOT_SEE = 2, SEND_AND_SEE =3 ,COUNT_MESSAGES = 1,
     CHECK_RESPONSE = 2;
 
-    public static final String PARAMETER_NAME_STATUS_V ="aria-label", SEND_NOT_SEE_PARAMETER =" נמסרה ", SEND_AND_SEE_PARAMETER = " נקראה ";
+    public static final String PARAMETER_NAME_STATUS_V ="aria-label", SEND_NOT_SEE_PARAMETER ="נמסרה", SEND_AND_SEE_PARAMETER = "נקראה";
 
     public static final int TIME_FOR_LOADING = 5000;
 
